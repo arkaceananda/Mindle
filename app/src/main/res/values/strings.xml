@@ -20,4 +20,44 @@
     <string name="auth_continue_guest">Lihat-lihat dulu sebagai tamu</string>
     <string name="auth_terms">Dengan melanjutkan, kamu menyetujui Ketentuan Layanan dan Kebijakan Privasi.</string>
     <string name="auth_loading_description">Sedang memproses</string>
+
+    <!-- Navigation -->
+    <string name="nav_explore">Jelajahi</string>
+    <string name="nav_my_learning">Belajarku</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Explore -->
+    <string name="explore_search_placeholder">Cari course</string>
+    <string name="explore_continue_learning">Lanjutkan belajar</string>
+    <string name="explore_sort_recent">Terbaru</string>
+    <string name="explore_sort_popular">Populer</string>
+    <string name="explore_editorial_volunteers">Relawan minggu ini</string>
+    <string name="explore_editorial_volunteers_body">Pertanyaan yang membutuhkan jawaban dari komunitas.</string>
+
+    <!-- Course -->
+    <string name="course_format_article">Artikel</string>
+    <string name="course_format_video">Video</string>
+    <string name="course_meta_duration">%1$d menit</string>
+    <string name="course_meta_learners">%1$s pelajar</string>
+    <string name="course_state_new">BARU</string>
+    <string name="course_state_edited">DIPERBARUI</string>
+    <string name="course_resume">Lanjutkan %1$d%%</string>
+
+    <!-- Categories -->
+    <string name="category_all">Semua</string>
+    <string name="category_technology">Teknologi</string>
+    <string name="category_language">Bahasa</string>
+    <string name="category_business">Bisnis</string>
+    <string name="category_design">Desain</string>
+    <string name="category_science">Sains</string>
+    <string name="category_growth">Pengembangan Diri</string>
+
+    <!-- Gated / placeholders -->
+    <string name="gated_sign_in_title">Masuk untuk melanjutkan</string>
+    <string name="gated_sign_in_body">Fitur ini membutuhkan akun. Progres dan riwayatmu akan tetap aman.</string>
+    <string name="gated_sign_in_action">Masuk</string>
+    <string name="placeholder_coming_soon">Segera hadir</string>
+    <string name="my_learning_title">Belajarku</string>
+    <string name="profile_title">Profil</string>
+    <string name="sign_out">Keluar</string>
 </resources>

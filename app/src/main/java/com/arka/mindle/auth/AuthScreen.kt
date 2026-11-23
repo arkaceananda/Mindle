@@ -42,6 +42,7 @@ import com.arka.mindle.ui.theme.Spacing
 fun AuthScreen(
     viewModel: AuthViewModel,
     onAuthSuccess: () -> Unit,
+    onContinueAsGuest: (() -> Unit)? = null,
 ) {
     val form = viewModel.state.form
     val isLoading = viewModel.isLoading
@@ -186,6 +187,17 @@ fun AuthScreen(
                 )
             },
         )
+
+        if (onContinueAsGuest != null) {
+            Spacer(Modifier.height(Spacing.sm))
+            TextButton(
+                onClick = onContinueAsGuest,
+                enabled = !isLoading,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(text = stringResource(R.string.auth_continue_guest))
+            }
+        }
 
         Spacer(Modifier.height(Spacing.hero))
         Text(
