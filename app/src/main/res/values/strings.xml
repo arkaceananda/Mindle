@@ -1,3 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mindle</string>
+
+    <string name="auth_headline_login">Selamat datang kembali</string>
+    <string name="auth_headline_register">Mulai belajar dan berbagi</string>
+    <string name="auth_subtitle">Belajar dan berbagi pengetahuan secara gratis.</string>
+    <string name="auth_continue_google">Lanjutkan dengan Google</string>
+    <string name="auth_or">atau</string>
+    <string name="auth_field_name">Nama</string>
+    <string name="auth_field_email">Email</string>
+    <string name="auth_field_password">Kata sandi</string>
+    <string name="auth_password_show">Tampilkan</string>
+    <string name="auth_password_hide">Sembunyikan</string>
+    <string name="auth_submit_login">Masuk</string>
+    <string name="auth_submit_register">Buat akun</string>
+    <string name="auth_toggle_to_register">Belum punya akun? Daftar</string>
+    <string name="auth_toggle_to_login">Sudah punya akun? Masuk</string>
+    <string name="auth_continue_guest">Lihat-lihat dulu sebagai tamu</string>
+    <string name="auth_terms">Dengan melanjutkan, kamu menyetujui Ketentuan Layanan dan Kebijakan Privasi.</string>
+    <string name="auth_loading_description">Sedang memproses</string>
 </resources>
