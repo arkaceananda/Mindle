@@ -77,34 +77,6 @@ fun AuthScreen(
         )
         Spacer(Modifier.height(Spacing.hero))
 
-        MindleButton(
-            text = stringResource(R.string.auth_continue_google),
-            onClick = { viewModel.signInWithGoogle(context) },
-            modifier = Modifier.fillMaxWidth(),
-            tone = ButtonTone.Secondary,
-            enabled = !isLoading,
-            leading = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_google_g),
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp),
-                )
-            },
-        )
-
-        Spacer(Modifier.height(Spacing.lg))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            HorizontalDivider(Modifier.weight(1f), color = app.line)
-            Text(
-                text = stringResource(R.string.auth_or),
-                style = MaterialTheme.typography.bodySmall,
-                color = app.textTertiary,
-                modifier = Modifier.padding(horizontal = Spacing.md),
-            )
-            HorizontalDivider(Modifier.weight(1f), color = app.line)
-        }
-        Spacer(Modifier.height(Spacing.lg))
-
         if (form.isRegister) {
             AuthField(
                 value = form.displayName,
@@ -186,6 +158,34 @@ fun AuthScreen(
                 Text(text = stringResource(R.string.auth_forgot_password))
             }
         }
+
+        Spacer(Modifier.height(Spacing.lg))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            HorizontalDivider(Modifier.weight(1f), color = app.line)
+            Text(
+                text = stringResource(R.string.auth_or),
+                style = MaterialTheme.typography.bodySmall,
+                color = app.textTertiary,
+                modifier = Modifier.padding(horizontal = Spacing.md),
+            )
+            HorizontalDivider(Modifier.weight(1f), color = app.line)
+        }
+        Spacer(Modifier.height(Spacing.lg))
+
+        MindleButton(
+            text = stringResource(R.string.auth_continue_google),
+            onClick = { viewModel.signInWithGoogle(context) },
+            modifier = Modifier.fillMaxWidth(),
+            tone = ButtonTone.Secondary,
+            enabled = !isLoading,
+            leading = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_google_g),
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+            },
+        )
 
         Spacer(Modifier.height(Spacing.hero))
         Text(
