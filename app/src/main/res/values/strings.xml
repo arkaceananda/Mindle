@@ -16,6 +16,7 @@
     <string name="auth_submit_register">Buat akun</string>
     <string name="auth_toggle_to_register">Belum punya akun? Daftar</string>
     <string name="auth_toggle_to_login">Sudah punya akun? Masuk</string>
+    <string name="auth_forgot_password">Lupa kata sandi?</string>
     <string name="auth_continue_guest">Lihat-lihat dulu sebagai tamu</string>
     <string name="auth_terms">Dengan melanjutkan, kamu menyetujui Ketentuan Layanan dan Kebijakan Privasi.</string>
     <string name="auth_loading_description">Sedang memproses</string>

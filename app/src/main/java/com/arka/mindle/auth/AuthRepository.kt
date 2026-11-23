@@ -51,4 +51,8 @@ class AuthRepository(private val context: Context) {
     }
 
     fun signOut() = auth.signOut()
+
+    suspend fun sendPasswordReset(email: String): Result<Unit> = runCatching {
+        auth.sendPasswordResetEmail(email).await()
+    }
 }

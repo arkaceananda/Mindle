@@ -30,6 +30,9 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     var state by mutableStateOf<AuthUiState>(AuthUiState.Idle())
         private set
 
+    var resetMessage by mutableStateOf<String?>(null)
+        private set
+
     private fun updateForm(transform: (AuthForm) -> AuthForm) {
         state = when (val s = state) {
             is AuthUiState.Idle -> AuthUiState.Idle(transform(s.form))
@@ -41,7 +44,10 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     fun toggleMode() = updateForm { it.copy(isRegister = !it.isRegister) }
     fun onDisplayNameChange(v: String) = updateForm { it.copy(displayName = v) }
-    fun onEmailChange(v: String) = updateForm { it.copy(email = v) }
+    fun onEmailChange(v: String) {
+        resetMessage = null
+        updateForm { it.copy(email = v) }
+    }
     fun onPasswordChange(v: String) = updateForm { it.copy(password = v) }
     fun togglePassword() = updateForm { it.copy(showPassword = !it.showPassword) }
 
@@ -71,8 +77,22 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun signInWithGoogle(context: Context) {
-        state = AuthUiState.Loading(state.form)
+    fun sendPasswordReset() {
+        val email = state.form.email
+        if (email.isBlank()) {
+            state = AuthUiState.Error(state.form, "Isi email dulu untuk mengirim tautan reset.")
+            return
+        }
+        viewModelScope.launch {
+            repository.sendPasswordReset(email)
+                .onSuccess { resetMessage = "Tautan reset kata sandi sudah dikirim ke $email." }
+                .onFailure { e ->
+                    state = AuthUiState.Error(state.form, e.message ?: "Gagal mengirim tautan reset.")
+                }
+        }
+    }
+
+    fun signInWithGoogle(context: Context) {        state = AuthUiState.Loading(state.form)
         viewModelScope.launch {
             repository.signInWithGoogle().onSuccess { user ->
                 state = AuthUiState.Success(state.form, user)
