@@ -145,7 +145,7 @@ private fun ExploreTopBar() {
 private fun SearchPill(onClick: () -> Unit) {
     val scheme = MaterialTheme.colorScheme
     val app = LocalAppColors.current
-    val shape = MaterialTheme.shapes.medium
+    val shape = androidx.compose.foundation.shape.RoundedCornerShape(50)
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -154,7 +154,7 @@ private fun SearchPill(onClick: () -> Unit) {
             .border(1.dp, app.line, shape)
             .background(scheme.surface, shape)
             .clickable(onClick = onClick)
-            .padding(horizontal = Spacing.lg),
+            .padding(horizontal = Spacing.xl),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(

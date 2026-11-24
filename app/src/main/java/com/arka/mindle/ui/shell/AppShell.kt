@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -75,6 +76,7 @@ fun AppShell(
             MindleBottomBar(
                 items = items,
                 selectedIndex = selectedIndex,
+                modifier = Modifier.navigationBarsPadding(),
                 onSelect = { index ->
                     val tab = ShellTab.entries[index]
                     val gated = tab != ShellTab.EXPLORE
