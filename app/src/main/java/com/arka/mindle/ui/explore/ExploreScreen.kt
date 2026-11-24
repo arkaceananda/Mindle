@@ -23,8 +23,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,7 +36,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.arka.mindle.R
-import com.arka.mindle.data.MockCourses
+import com.arka.mindle.data.CourseRepository
+import com.arka.mindle.data.MockCourseRepository
 import com.arka.mindle.model.CourseCategory
 import com.arka.mindle.ui.components.CompactCourseCard
 import com.arka.mindle.ui.components.CourseCard
@@ -51,15 +52,17 @@ fun ExploreScreen(
     isSignedIn: Boolean,
     onCourseClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    repository: CourseRepository = remember { MockCourseRepository() },
 ) {
     val scheme = MaterialTheme.colorScheme
-    val app = LocalAppColors.current
     var selectedCategory by rememberSaveable { mutableStateOf<CourseCategory?>(null) }
     var sortMode by rememberSaveable { mutableStateOf(SortMode.RECENT) }
+    val feed by repository.observeFeed().collectAsState(initial = emptyList())
+    val continueLearning by repository.observeContinueLearning().collectAsState(initial = emptyList())
 
-    val courses = remember(selectedCategory, sortMode) {
-        val filtered = if (selectedCategory == null) MockCourses.feed
-        else MockCourses.feed.filter { it.category == selectedCategory }
+    val courses = remember(feed, selectedCategory, sortMode) {
+        val filtered = if (selectedCategory == null) feed
+        else feed.filter { it.category == selectedCategory }
         if (sortMode == SortMode.POPULAR) filtered.sortedByDescending { it.learnerCount } else filtered
     }
 
@@ -76,14 +79,14 @@ fun ExploreScreen(
                 onSelect = { selectedCategory = it },
             )
         }
-        if (isSignedIn && MockCourses.continueLearning.isNotEmpty()) {
+        if (isSignedIn && continueLearning.isNotEmpty()) {
             item {
                 SectionLabel(text = stringResource(R.string.explore_continue_learning))
                 Column(
                     modifier = Modifier.padding(horizontal = Spacing.screenHorizontal),
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm),
                 ) {
-                    MockCourses.continueLearning.forEach { course ->
+                    continueLearning.forEach { course ->
                         CompactCourseCard(course = course, onClick = { onCourseClick(course.id) })
                     }
                 }
@@ -127,9 +130,9 @@ private fun ExploreTopBar() {
                 modifier = Modifier.weight(1f),
             )
             Icon(
-                painter = painterResource(R.drawable.ic_search),
-                contentDescription = null,
-                tint = app.textTertiary,
+                painter = painterResource(R.drawable.ic_notifications),
+                contentDescription = stringResource(R.string.nav_notifications),
+                tint = scheme.onSurface,
                 modifier = Modifier.size(24.dp),
             )
         }

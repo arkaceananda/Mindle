@@ -25,6 +25,7 @@
     <string name="nav_explore">Jelajahi</string>
     <string name="nav_my_learning">Belajarku</string>
     <string name="nav_profile">Profil</string>
+    <string name="nav_notifications">Notifikasi</string>
 
     <!-- Explore -->
     <string name="explore_search_placeholder">Cari course</string>
