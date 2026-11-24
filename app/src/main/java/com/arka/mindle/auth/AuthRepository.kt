@@ -1,7 +1,7 @@
 package com.arka.mindle.auth
 
-import com.arka.mindle.R
 import android.content.Context
+import com.arka.mindle.R
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialCancellationException
@@ -35,12 +35,8 @@ class AuthRepository(private val context: Context) {
     }
 
     suspend fun signInWithGoogle(): Result<FirebaseUser> = runCatching {
-        // default_web_client_id is generated from google-services.json's web oauth_client (type 3).
-        val resId = context.resources.getIdentifier("default_web_client_id", "string", context.packageName)
-        check(resId != 0) {
-            "Google Sign-In belum dikonfigurasi: daftarkan SHA-1 aplikasi di Firebase, aktifkan provider Google, lalu unduh ulang google-services.json."
-        }
-        val webClientId = context.getString(resId)
+        // Generated from google-services.json web oauth_client (client_type 3).
+        val webClientId = context.getString(R.string.default_web_client_id)
         val credentialManager = CredentialManager.create(context)
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
@@ -50,9 +46,9 @@ class AuthRepository(private val context: Context) {
             .addCredentialOption(googleIdOption).build()
         val result = try {
             credentialManager.getCredential(context, request)
-        } catch (e: GetCredentialCancellationException) {
+        } catch (_: GetCredentialCancellationException) {
             throw IllegalStateException("Sign-in Google dibatalkan.")
-        } catch (e: NoCredentialException) {
+        } catch (_: NoCredentialException) {
             throw IllegalStateException("Tidak ada akun Google di perangkat ini.")
         } catch (e: GetCredentialException) {
             throw IllegalStateException("Google Sign-In gagal (${e.type}). Periksa SHA-1 dan google-services.json.")
