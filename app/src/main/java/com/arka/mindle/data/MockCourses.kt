@@ -3,6 +3,8 @@ package com.arka.mindle.data
 import com.arka.mindle.model.Course
 import com.arka.mindle.model.CourseCategory
 import com.arka.mindle.model.CourseFormat
+import com.arka.mindle.model.CoursePreviewData
+import com.arka.mindle.model.DiscussionSnippet
 
 object MockCourses {
     val categories = CourseCategory.entries.toList()
@@ -83,6 +85,28 @@ object MockCourses {
             learnerCount = 2310,
             category = CourseCategory.GROWTH,
             progressPercent = 45,
+        ),
+    )
+
+    val previewData: Map<String, CoursePreviewData> = mapOf(
+        "c1" to CoursePreviewData(
+            overview = "Pelajari dasar-dasar Python dari nol: variabel, tipe data, percabangan, perulangan, fungsi, hingga struktur data dasar. Cocok untuk pemula yang belum pernah coding sebelumnya.",
+            feedbackAverage = 4.8,
+            feedbackCount = 312,
+            feedbackDistribution = listOf(248, 42, 12, 6, 4),
+            discussionSnippets = listOf(
+                DiscussionSnippet("Rina Putri", "CREATOR", "2 hari lalu", "Terima kasih sudah belajar! Kalau ada pertanyaan, silakan tanya di sini.", "COMMENT"),
+                DiscussionSnippet("Budi Santoso", "VOLUNTEER", "5 hari lalu", "Untuk pemula, bagian perulangan paling menantang tapi paling seru.", "COMMENT"),
+            ),
+        ),
+        "c2" to CoursePreviewData(
+            overview = "Kuasai cara menulis email profesional dalam bahasa Inggris: struktur, kosakata, tone, dan contoh nyata untuk berbagai situasi kerja.",
+            feedbackAverage = 4.6,
+            feedbackCount = 198,
+            feedbackDistribution = listOf(140, 38, 12, 5, 3),
+            discussionSnippets = listOf(
+                DiscussionSnippet("Andi Pratama", "CREATOR", "1 minggu lalu", "Jangan lupa cek bagian formal vs informal di unit 3.", "COMMENT"),
+            ),
         ),
     )
 }

@@ -218,7 +218,7 @@ private fun StateChip(label: String) {
 }
 
 @Composable
-private fun MetaIcon(res: Int) {
+fun MetaIcon(res: Int) {
     Icon(
         painter = painterResource(res),
         contentDescription = null,
@@ -229,7 +229,7 @@ private fun MetaIcon(res: Int) {
 }
 
 @Composable
-private fun MetaDot() {
+fun MetaDot() {
     Text(
         text = " · ",
         style = MaterialTheme.typography.bodySmall,

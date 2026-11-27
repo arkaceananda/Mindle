@@ -22,6 +22,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,12 +44,14 @@ import com.arka.mindle.data.MockCourseRepository
 import com.arka.mindle.model.CourseCategory
 import com.arka.mindle.ui.components.CompactCourseCard
 import com.arka.mindle.ui.components.CourseCard
+import com.arka.mindle.ui.components.CoursePreviewSheet
 import com.arka.mindle.ui.components.labelRes
 import com.arka.mindle.ui.theme.LocalAppColors
 import com.arka.mindle.ui.theme.Spacing
 
 private enum class SortMode { RECENT, POPULAR }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExploreScreen(
     isSignedIn: Boolean,
@@ -57,6 +62,8 @@ fun ExploreScreen(
     val scheme = MaterialTheme.colorScheme
     var selectedCategory by rememberSaveable { mutableStateOf<CourseCategory?>(null) }
     var sortMode by rememberSaveable { mutableStateOf(SortMode.RECENT) }
+    var previewCourse by remember { mutableStateOf<com.arka.mindle.model.Course?>(null) }
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val feed by repository.observeFeed().collectAsState(initial = emptyList())
     val continueLearning by repository.observeContinueLearning().collectAsState(initial = emptyList())
 
@@ -87,7 +94,7 @@ fun ExploreScreen(
                     verticalArrangement = Arrangement.spacedBy(Spacing.sm),
                 ) {
                     continueLearning.forEach { course ->
-                        CompactCourseCard(course = course, onClick = { onCourseClick(course.id) })
+                        CompactCourseCard(course = course, onClick = { previewCourse = course })
                     }
                 }
                 Spacer(Modifier.height(Spacing.lg))
@@ -102,9 +109,25 @@ fun ExploreScreen(
                     EditorialModule()
                     Spacer(Modifier.height(Spacing.md))
                 }
-                CourseCard(course = course, onClick = { onCourseClick(course.id) })
+                CourseCard(course = course, onClick = { previewCourse = course })
                 Spacer(Modifier.height(Spacing.md))
             }
+        }
+    }
+
+    previewCourse?.let { course ->
+        ModalBottomSheet(
+            onDismissRequest = { previewCourse = null },
+            sheetState = sheetState,
+            containerColor = scheme.surface,
+        ) {
+            CoursePreviewSheet(
+                course = course,
+                onStartLearning = {
+                    previewCourse = null
+                    onCourseClick(course.id)
+                },
+            )
         }
     }
 }
